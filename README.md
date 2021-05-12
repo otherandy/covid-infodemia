@@ -2,7 +2,7 @@
 Modelo de gestión de información sobre la enfermedad COVID-19 para disminuir el impacto de la infodemia
 
 
-
+```
               _________
              {_________}
               )=======(
@@ -14,4 +14,4 @@ Modelo de gestión de información sobre la enfermedad COVID-19 para disminuir e
       __    ||    /\   ||
  __  (_|)   |'---------'|
 (_|)        `-.........-'
-
+```
