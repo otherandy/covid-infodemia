@@ -34,7 +34,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `covid`.`resumenes` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `texto` MEDIUMTEXT NOT NULL,
-  `orignial` VARCHAR(255) NOT NULL,
+  `original` VARCHAR(255) NOT NULL,
   `fecha_creacion` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `idnew_table_UNIQUE` (`id` ASC) VISIBLE)
