@@ -10,7 +10,7 @@ $("#form").submit(function(e) {
 
     $.get(url, function(data) {
         console.log(data)
-
+        $("#result").empty()
         data.organic_results.forEach(res => {
             result = `
             
