@@ -12,15 +12,15 @@ require "php-partials/db-conn.php";
 
 <body>
   <h1>Buscador Covid Repositorio-tags</h1>
-  <form action="tag-search.php" method="POST">
-    <input type="text" name="search" placeholder="search">
+  <form action="tag-search.php" method="GET">
+    <input type="text" name="search" placeholder="search" value="<?= $_GET ? $_GET['search'] : "" ?>">
     <button type="submit">buscar</button>
   </form>
   <?php
-  if ($_POST) : ?>
+  if ($_GET) : ?>
     <div>
       <?php
-      $consulta = "select * from etiquetas_de_resumen a,etiquetas b,resumenes c where b.nombre like '" . $_POST['search'] . "' and etiquetas_id=b.id";
+      $consulta = "select * from etiquetas_de_resumen a,etiquetas b,resumenes c where b.nombre like '" . $_GET['search'] . "' and etiquetas_id=b.id";
       if ($ejecutar = $conn->query($consulta)) :
         while ($fila = $ejecutar->fetch_assoc()) : ?>
           <a><?= $fila['texto'] ?></a>
