@@ -16,7 +16,7 @@ $id_resumen="1";
 <?php
 $consulta="select * from etiquetas_de_resumen a,etiquetas b where resumenes_id='".$id_resumen."' and etiquetas_id=b.id";
 if($ejecutar=$conn->query($consulta)):
-while($fila=$ejecutar->fetch_assoc()): 
+while($fila=$ejecutar->fetch_assoc()):
 ?>
 <span class="badge badge-info"><?=$fila['nombre']?></span>
 <?php
