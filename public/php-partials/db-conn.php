@@ -1,8 +1,7 @@
 <?php
-$host="localhost";
-$user="root";
-$pass="";
-$db="covid";
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "covid";
 
-$conn=new mysqli($host,$user,$pass,$db);
-?>
+$conn = new mysqli($host, $user, $pass, $db);
