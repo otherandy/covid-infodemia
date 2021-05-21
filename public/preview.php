@@ -20,9 +20,29 @@ require "php-partials/db-conn.php";
       <input type="text" id="texto" name="texto" value="<?= $resultado['texto'] ?>">
       <label for="original">Original:</label>
       <textarea id="original" name="original" rows="4" cols="50"><?= $resultado['original'] ?></textarea>
-      <input type="submit" value="Submit">
+      <button type="submit">Actualizar</button>
     </form>
+    <?php
+  endif;
+  $consulta = "select * from etiquetas_de_resumen,etiquetas e where resumenes_id='" . $_GET['id'] . "' and etiquetas_id=e.id";
+  if ($ejecutar = $conn->query($consulta)) :
+    while ($fila = $ejecutar->fetch_assoc()) : ?>
+      <div>
+        <span><?= $fila['nombre'] ?></span>
+        <a href="update-tags.php?id=<?= $_GET['id'] ?>&e_id=<?= $fila['etiquetas_id'] ?>&r_id=<?= $fila['resumenes_id'] ?>&del=1">X</a>
+      </div>
+    <?php
+    endwhile;
+  endif;
+  $consulta = "select * from etiquetas e where not exists (select * from etiquetas_de_resumen where resumenes_id='" . $_GET['id'] . "' and etiquetas_id=e.id)";
+  if ($ejecutar = $conn->query($consulta)) :
+    while ($fila = $ejecutar->fetch_assoc()) : ?>
+      <div>
+        <span><?= $fila['nombre'] ?></span>
+        <a href="update-tags.php?id=<?= $_GET['id'] ?>&e_id=<?= $fila['id'] ?>&r_id=<?= $_GET['id'] ?>&del=0">+</a>
+      </div>
   <?php
+    endwhile;
   endif; ?>
 </body>
 

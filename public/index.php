@@ -22,12 +22,12 @@ require "php-partials/db-conn.php";
     <div>
 
       <?php
-      $consulta = "select * from etiquetas_de_resumen a,etiquetas b,resumenes c where b.nombre like '" . $_GET['search'] . "' and etiquetas_id=b.id and resumenes_id=c.id";
+      $consulta = "select * from etiquetas_de_resumen,etiquetas e,resumenes r where e.nombre like '" . $_GET['search'] . "' and etiquetas_id=e.id and resumenes_id=r.id";
       if ($ejecutar = $conn->query($consulta)) :
         while ($fila = $ejecutar->fetch_assoc()) : ?>
           <a href="preview.php?id=<?= $fila['resumenes_id']; ?>"><?= $fila['texto'] ?> (<?= $fila['fecha_creacion'] ?>)</a>
           <?php
-          $consulta2 = "select * from etiquetas_de_resumen a,etiquetas b where resumenes_id='" . $fila['resumenes_id'] . "' and etiquetas_id=b.id";
+          $consulta2 = "select * from etiquetas_de_resumen,etiquetas e where resumenes_id='" . $fila['resumenes_id'] . "' and etiquetas_id=e.id";
           if ($ejecutar2 = $conn->query($consulta2)) :
             while ($fila2 = $ejecutar2->fetch_assoc()) : ?>
               <span><?= $fila2['nombre'] ?></span>
