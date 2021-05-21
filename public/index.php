@@ -5,13 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buscar en repositorio</title>
+
+
 </head>
 <?php
 require "php-partials/db-conn.php";
+session_start();
+$user="";
+if(isset($_SESSION['usuario'])){
+  $user=$_SESSION['usuario'];
+}
 ?>
 
 <body>
   <h1>Buscador Covid Repositorio-tags</h1>
+  <div style="text-align: right;"><?=$user?></div>
   <form action="index.php" method="GET">
     <input type="text" name="search" placeholder="search" value="<?= $_GET ? $_GET['search'] : "" ?>">
     <button type="submit">buscar</button>
