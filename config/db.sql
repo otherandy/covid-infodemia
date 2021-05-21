@@ -66,11 +66,12 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `covid`.`usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `covid`.`usuarios` (
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL, AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `tipo` varchar(50) NOT NULL
+  `tipo` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
