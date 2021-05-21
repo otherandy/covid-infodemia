@@ -20,7 +20,7 @@ require "php-partials/db-conn.php";
   if ($_GET) : ?>
     <div>
       <?php
-      $consulta = "select * from etiquetas_de_resumen a,etiquetas b,resumenes c where b.nombre like '" . $_GET['search'] . "' and etiquetas_id=b.id";
+      $consulta = "select * from etiquetas_de_resumen a,etiquetas b,resumenes c where b.nombre like '" . $_GET['search'] . "' and etiquetas_id=b.id and resumenes_id=c.id";
       if ($ejecutar = $conn->query($consulta)) :
         while ($fila = $ejecutar->fetch_assoc()) : ?>
           <a><?= $fila['texto'] ?></a>
