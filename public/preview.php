@@ -13,12 +13,11 @@ require "php-partials/db-conn.php";
 <body>
   <?php
   $consulta = "select * from resumenes where id='" . $_GET['id'] . "'";
-  if ($resultado = $conn->query($consulta)->fetch_assoc()) :
-  ?>
+  if ($resultado = $conn->query($consulta)->fetch_assoc()) : ?>
     <form action="update.php" method="POST">
-      <input type="text" name="id" value="<?= $_GET['id'] ?>" hidden>
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" value="<?= $resultado['texto'] ?>">
+      <input type="number" name="id" value="<?= $_GET['id'] ?>" hidden>
+      <label for="texto">Texto:</label>
+      <input type="text" id="texto" name="texto" value="<?= $resultado['texto'] ?>">
       <label for="original">Original:</label>
       <textarea id="original" name="original" rows="4" cols="50"><?= $resultado['original'] ?></textarea>
       <input type="submit" value="Submit">
