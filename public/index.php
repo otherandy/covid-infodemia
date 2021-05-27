@@ -10,15 +10,15 @@
 </head>
 <?php
 require "php-partials/db-conn.php";
-session_start();
-$user="";
-if(isset($_SESSION['usuario'])){
-  $user=$_SESSION['usuario'];
-}
 ?>
 
 <body>
   <h1>Buscador Covid Repositorio-tags</h1>
+  <?php
+  require 'php-partials/session.php';
+  ?>
+
+
   <div style="text-align: right;"><?=$user?></div>
   <form action="index.php" method="GET">
     <input type="text" name="search" placeholder="search" value="<?= $_GET ? $_GET['search'] : "" ?>">

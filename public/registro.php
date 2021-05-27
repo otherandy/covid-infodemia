@@ -51,9 +51,11 @@ if($_POST){
             <?=$message?>
             <form class="form-detail" action="registro.php" method="POST" id="myform">
                 <input type="text" name="usuario" placeholder="nombre usuario">
-                <input type="pass" name="contraseña" placeholder="contraseña">
-                <input type="pass" name="contraseña2" placeholder=" confirme contraseña">
-                <input type="pass" name="correo" placeholder="correo electronico">
+                <input type="password" name="contraseña" placeholder="contraseña">
+                <input type="password" name="contraseña2" placeholder=" confirme contraseña">
+                <input type="text" title="debes usar un correo valido: ejemplo@ejemplo.com" name="correo" id="correo"
+                            class="input-text " required pattern="[^@]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            placeholder="Correo Electronico">
 
                     <div class="container">
                         <input type="submit" onclick="alert(Registro Satisfactorio)" name="register" class="register"

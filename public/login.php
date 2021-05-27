@@ -1,7 +1,9 @@
 <?php
 session_start();
-$message="";
-require 'php-partials/db-conn.php';
+static $message="";
+if(isset($_SESSION['nombre'])){
+  header('Location: index.php');
+}
 
 $server='localhost';
 $username='root';
@@ -14,15 +16,15 @@ try{
     die('Conexion fallida: '.$e->getMessage());
 }
 
-if (!empty($_POST['nombre']) && !empty($_POST['contraseña'])) {
+if (!empty($_POST['usuario']) && !empty($_POST['pass'])) {
       $records = $conn->prepare('SELECT nombre, password, tipo FROM usuarios WHERE nombre = :nombre');
       $records->bindParam(':nombre', $_POST['usuario']);
       $records->execute();
       $results = $records->fetch(PDO::FETCH_ASSOC);
 
-      static $message = '';
+      $message = 'funciona';
 
-      if (!empty($_POST['usuario']) && password_verify($_POST['contraseña'], $results['contraseña'])) {
+      if (!empty($_POST['usuario']) && password_verify($_POST['pass'], $results['password'])) {
           $_SESSION['nombre'] = $results['nombre'];
           $_SESSION['tipo'] = $results['tipo'];
            $message = 'SESION INICIADA.';
@@ -42,14 +44,14 @@ if (!empty($_POST['nombre']) && !empty($_POST['contraseña'])) {
 </head>
 
 
-
+<h5><a href="index.php">inicio</a></h5>
 <body class="form-v10">
     <div class="page-content">
         <div class="form-v10-content">
             <?=$message?>
             <form class="form-detail" action="login.php" method="POST" id="myform">
                 <input type="text" name="usuario" placeholder="nombre usuario">
-                <input type="pass" name="contraseña" placeholder="contraseña">
+                <input type="pass" name="pass" placeholder="contraseña">
 
                     <div class="container">
                         <input type="submit" onclick="alert(Registro Satisfactorio)" name="register" class="register"
