@@ -51,7 +51,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['pass'])) {
             <?=$message?>
             <form class="form-detail" action="login.php" method="POST" id="myform">
                 <input type="text" name="usuario" placeholder="nombre usuario">
-                <input type="pass" name="pass" placeholder="contraseña">
+                <input type="password" name="pass" placeholder="contraseña">
 
                     <div class="container">
                         <input type="submit" onclick="alert(Registro Satisfactorio)" name="register" class="register"
