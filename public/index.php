@@ -102,6 +102,8 @@
           <?php
           $consulta = "select * from etiquetas_de_resumen,etiquetas e,resumenes r where e.nombre like '" . $_GET['search'] . "' and etiquetas_id=e.id and resumenes_id=r.id";
           if ($ejecutar = $conn->query($consulta)) :
+            $rows = mysqli_num_rows($ejecutar);
+            echo "<p>resultados encontrados: ".$rows."</p>";
             while ($fila = $ejecutar->fetch_assoc()) : ?>
               <a href="preview.php?id=<?= $fila['resumenes_id']; ?>"><?= $fila['texto'] ?> <p>(<?= $fila['fecha_creacion'] ?>)</p> </a>
               <?php
