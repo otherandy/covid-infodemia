@@ -105,7 +105,7 @@
             $rows = mysqli_num_rows($ejecutar);
             echo "<p>resultados encontrados: ".$rows."</p>";
             while ($fila = $ejecutar->fetch_assoc()) : ?>
-              <a href="preview.php?id=<?= $fila['resumenes_id']; ?>"><?= $fila['texto'] ?> <p>(<?= $fila['fecha_creacion'] ?>)</p> </a>
+              <a href="preview.php?id=<?= $fila['resumenes_id']; ?>"><?= $fila['texto'] ?> <p><?= substr($fila['fecha_creacion'], 0, -9) ?></p> </a>
               <?php
               $consulta2 = "select * from etiquetas_de_resumen,etiquetas e where resumenes_id='" . $fila['resumenes_id'] . "' and etiquetas_id=e.id";
               if ($ejecutar2 = $conn->query($consulta2)) :
