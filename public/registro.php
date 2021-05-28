@@ -12,28 +12,47 @@ if ($_POST) {
     $pass2 = $_POST['contraseña2'];
     $correo = $_POST['correo'];
     $tipo = "usuario";
-    $username_err = 0; //variable flag, si vale 1 el usuario ya esta tomado
+    $username_err = 0; //variable flag, si es 1 el usuario ya esta tomado
+    $email_err = 0;
 	
-    $sql = "SELECT `id_usuario` FROM `usuarios` WHERE `nombre` = ?";
-    if($stmt = mysqli_prepare($conn, $sql)){
+    //checar nombres repetidos
+    $sql_nombre = "SELECT `id_usuario` FROM `usuarios` WHERE `nombre` = ?";
+    if($stmt = mysqli_prepare($conn, $sql_nombre)){
         mysqli_stmt_bind_param($stmt, "s", $param_username);
         $param_username = trim($usuario);
         if(mysqli_stmt_execute($stmt)){
             mysqli_stmt_store_result($stmt);
                 
-            if(mysqli_stmt_num_rows($stmt) == 1){ //si ya hay un registro son ese nombre de usuario
+            if(mysqli_stmt_num_rows($stmt) == 1){ //si ya hay un registro con ese nombre de usuario
                 $username_err = 1; //variable flag
             }
         }
         mysqli_stmt_close($stmt);
-	}
+    }
+    //checar correos repetidos
+    $sql_email = "SELECT `id_usuario` FROM `usuarios` WHERE `email` = ?";
+    if($stmt = mysqli_prepare($conn, $sql_email)){
+        mysqli_stmt_bind_param($stmt, "s", $param_email);
+        $param_email = trim($correo);
+        if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_store_result($stmt);
+                
+            if(mysqli_stmt_num_rows($stmt) == 1){
+                $email_err = 1; //variable flag
+            }
+        }
+        mysqli_stmt_close($stmt);
+    }
 	
     if ($pass != $pass2) {
         $message = "<h4>Las contraseñas no coinciden</h4>";
     }
-	else if($username_err == 1){
+    else if($username_err == 1){
         $message = "<h4>El nombre de usuario ya esta tomado</h4>";
-	}
+    }
+    else if($email_err == 1){
+        $message = "<h4>El correo ya esta tomado</h4>";
+    }
     else {
 
         $pass = password_hash($_POST['contraseña'], PASSWORD_BCRYPT); //encriptamos la contraseña
