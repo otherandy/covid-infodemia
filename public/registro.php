@@ -12,9 +12,29 @@ if ($_POST) {
     $pass2 = $_POST['contraseña2'];
     $correo = $_POST['correo'];
     $tipo = "usuario";
+    $username_err = 0; //variable flag, si vale 1 el usuario ya esta tomado
+	
+    $sql = "SELECT `id_usuario` FROM `usuarios` WHERE `nombre` = ?";
+    if($stmt = mysqli_prepare($conn, $sql)){
+        mysqli_stmt_bind_param($stmt, "s", $param_username);
+        $param_username = trim($usuario);
+        if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_store_result($stmt);
+                
+            if(mysqli_stmt_num_rows($stmt) == 1){ //si ya hay un registro son ese nombre de usuario
+                $username_err = 1; //variable flag
+            }
+        }
+        mysqli_stmt_close($stmt);
+	}
+	
     if ($pass != $pass2) {
         $message = "<h4>Las contraseñas no coinciden</h4>";
-    } else {
+    }
+	else if($username_err == 1){
+        $message = "<h4>El nombre de usuario ya esta tomado</h4>";
+	}
+    else {
 
         $pass = password_hash($_POST['contraseña'], PASSWORD_BCRYPT); //encriptamos la contraseña
         $sql = "INSERT INTO `usuarios`(`id_usuario`, `nombre`, `password`, `email`, `tipo`) VALUES (NULL,'" . $usuario . "','" . $pass . "','" . $correo . "','" . $tipo . "')";
