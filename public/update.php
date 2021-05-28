@@ -26,4 +26,3 @@ if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
 $uri .= $_SERVER['HTTP_HOST'];
 header('Location: ' . $uri . '/preview.php?id=' . $_POST['id']);
 exit;*/
-?>
