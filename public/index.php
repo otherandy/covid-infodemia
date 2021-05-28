@@ -20,6 +20,16 @@
       text-align: center;
     }
 
+    .padding11 {
+      padding: 5px;
+      border-radius: 117px;
+      text-align: center;
+    }
+
+    .margen15 {
+      margin: 15px;
+    }
+
     img {
       margin-left: 70px;
     }
@@ -30,52 +40,84 @@
 <body>
   <?php require "php-partials/session.php"; ?>
 
-  <div class="container">
-    <div id="zonaImagen" class="row">
-      <div class="col-4">
-      </div>
-      <div class="col-4">
-        <img src="https://webimages.iadb.org/Drupal_pantheon/2020-08/1-%281%29.png?VersionId=XywK8tvqUHQXXCyaEBVKRe13Alhvq4Bl" height="150" width="150">
-        <h6>Juntos para evitar la desinformación</h6>
-      </div>
-    </div>
-    <div class="col-4">
-    </div>
-  </div>
+  <?php
+  if (!$_GET) : ?>
 
-  <div class="row gy-5">
-    <div class="col-2"></div>
-    <form action="index.php" method="GET">
-      <div class="col-7">
-        <div class="input-group mb-3">
-          <input type="text" name="search" class="form-control padding10" placeholder="Introduce la busqueda" value="<?= $_GET ? $_GET['search'] : "" ?>">
+    <div class="container">
+      <div id="zonaImagen" class="row">
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+          <img src="https://webimages.iadb.org/Drupal_pantheon/2020-08/1-%281%29.png?VersionId=XywK8tvqUHQXXCyaEBVKRe13Alhvq4Bl" height="150" width="150">
+          <h6>Juntos para evitar la desinformación</h6>
         </div>
       </div>
-      <div class="col-3">
-        <button type="submit" class="btn btn-primary me-md-2 padding10" type="button">BUSCAR</button>
+      <div class="col-4">
+      </div>
+    </div>
+
+    <form action="index.php" method="GET">
+      <div class="row gy-5">
+        <div class="col-2"></div>
+        <div class="col-7">
+          <div class="input-group mb-3">
+            <input type="text" name="search" class="form-control padding10" placeholder="Introduce la busqueda">
+          </div>
+        </div>
+        <div class="col-3">
+          <button type="submit" class="btn btn-primary me-md-2 padding10">BUSCAR</button>
+        </div>
       </div>
     </form>
-  </div>
-  </div>
+    </div>
 
   <?php
-  if ($_GET) : ?>
-    <div>
-      <?php
-      $consulta = "select * from etiquetas_de_resumen,etiquetas e,resumenes r where e.nombre like '" . $_GET['search'] . "' and etiquetas_id=e.id and resumenes_id=r.id";
-      if ($ejecutar = $conn->query($consulta)) :
-        while ($fila = $ejecutar->fetch_assoc()) : ?>
-          <a href="preview.php?id=<?= $fila['resumenes_id']; ?>"><?= $fila['texto'] ?> (<?= $fila['fecha_creacion'] ?>)</a>
+  else : ?>
+    <div class="container">
+      <div class="margen15"></div>
+      <form action="index.php" method="GET">
+        <div class="row gy-5">
+          <div class="col-2"></div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input type="text" name="search" class="form-control padding11" placeholder="Introduce la busqueda" value="<?= $_GET ? $_GET['search'] : "" ?>">
+            </div>
+          </div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary me-md-2 padding11">BUSCAR</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container">
+      <div class="margen15"></div>
+      <div class="row gy-5">
+        <div class="col-1"></div>
+
+        <div id="resutados" class="col-10">
+          <div class="pahe-header">
+            <h6 id="Titulo" style="text-align: center;"></h6>
+          </div>
           <?php
-          $consulta2 = "select * from etiquetas_de_resumen,etiquetas e where resumenes_id='" . $fila['resumenes_id'] . "' and etiquetas_id=e.id";
-          if ($ejecutar2 = $conn->query($consulta2)) :
-            while ($fila2 = $ejecutar2->fetch_assoc()) : ?>
-              <span><?= $fila2['nombre'] ?></span>
-      <?php
+          $consulta = "select * from etiquetas_de_resumen,etiquetas e,resumenes r where e.nombre like '" . $_GET['search'] . "' and etiquetas_id=e.id and resumenes_id=r.id";
+          if ($ejecutar = $conn->query($consulta)) :
+            while ($fila = $ejecutar->fetch_assoc()) : ?>
+              <a href="preview.php?id=<?= $fila['resumenes_id']; ?>"><?= $fila['texto'] ?> <p>(<?= $fila['fecha_creacion'] ?>)</p> </a>
+              <?php
+              $consulta2 = "select * from etiquetas_de_resumen,etiquetas e where resumenes_id='" . $fila['resumenes_id'] . "' and etiquetas_id=e.id";
+              if ($ejecutar2 = $conn->query($consulta2)) :
+                while ($fila2 = $ejecutar2->fetch_assoc()) : ?>
+                  <span><?= $fila2['nombre'] ?></span>
+          <?php
+                endwhile;
+              endif;
             endwhile;
-          endif;
-        endwhile;
-      endif; ?>
+          endif; ?>
+        </div>
+
+        <div id="mostrarResultados" class="col-1"></div>
+      </div>
     </div>
   <?php
   endif; ?>
