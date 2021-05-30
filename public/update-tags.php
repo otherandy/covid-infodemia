@@ -8,6 +8,7 @@ if ((bool)$_GET['del']) {
 $consulta->bind_param("ii", $_GET['e_id'], $_GET['r_id']);
 $consulta->execute();
 
+/*
 if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
     $uri = 'https://';
 } else {
@@ -16,3 +17,12 @@ if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
 $uri .= $_SERVER['HTTP_HOST'];
 header('Location: ' . $uri . '/preview.php?id=' . $_GET['id']);
 exit;
+*/
+
+$url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+while (substr($url, -1) != '/'):
+    $url = substr($url, 0, -1);
+endwhile;
+header('Location: ' . $url. 'preview.php?id=' . $_GET['id']);
+exit();
+?>
