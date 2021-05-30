@@ -28,6 +28,9 @@ if (!empty($_POST['usuario']) && !empty($_POST['pass'])) {
         $_SESSION['nombre'] = $results['nombre'];
         $_SESSION['tipo'] = $results['tipo'];
         $message = 'SESION INICIADA.';
+        $url = "http://" . $_SERVER['HTTP_HOST'] . substr($_SERVER['REQUEST_URI'], 0, -9);
+	    header('Location: ' . $url);
+	    exit();
     } else {
         $message = 'Correo o contraseña incorrecta.';
     }
