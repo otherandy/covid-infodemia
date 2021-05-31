@@ -18,30 +18,33 @@
 	  exit();
   }
   ?>
-
-
+  
+  <p>CAMBIOS: </p>
   <div>
-
     <?php
     require 'php-partials/db-conn.php';
-    $consulta = "select * resumenes";
+    $consulta = "select * from `resumenes-cambios`";
     if ($ejecutar = $conn->query($consulta)) :
       while ($fila = $ejecutar->fetch_assoc()) : ?>
-        <span><?= "CAMBIOS: titulo: " . $fila['texto'] . " data: " . $fila['original'] . " usuario: " . $fila['fecha_creacion'] . " <br>" ?></span>
-
+		<div>
+          <span><?= "Titulo: " . $fila['texto'] . " Data: " . $fila['original'] . " Usuario: " . $fila['nombre_usuario'] ." Fecha: ". $fila['fecha_creacion']?></span>
+          <a href="update-changes.php?id=<?= $fila['id'] ?>&apl=1"><button type="button">Aplicar</button></a> <a href="update-changes.php?id=<?= $fila['id'] ?>&apl=0"><button type="button">Rechazar</button></a>
+        </div>
     <?php
-      /*endwhile;
-        endif;*/
       endwhile;
     endif; ?>
-	
+  </div>
+  
+  <p>USUARIOS: </p>
+  <div>
+  
 	<?php
     $consulta = "select * from usuarios where tipo='admin' and  nombre NOT LIKE '" . $_SESSION['nombre'] . "'";
     if ($ejecutar = $conn->query($consulta)) :
       while ($fila = $ejecutar->fetch_assoc()) : ?>
         <div>
           <span><?= $fila['nombre'] ?></span>
-          <a href="update-users.php?id=<?= $fila['id_usuario'] ?>&del=1">Demote</a>
+          <a href="update-users.php?id=<?= $fila['id_usuario'] ?>&del=1">Descender</a>
         </div>
     <?php
       endwhile;
@@ -51,7 +54,7 @@
       while ($fila = $ejecutar->fetch_assoc()) : ?>
         <div>
           <span><?= $fila['nombre'] ?></span>
-          <a href="update-users.php?id=<?= $fila['id_usuario'] ?>&del=0">Promote</a>
+          <a href="update-users.php?id=<?= $fila['id_usuario'] ?>&del=0">Ascender</a>
         </div>
     <?php
       endwhile;
