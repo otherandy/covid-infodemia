@@ -113,10 +113,14 @@
              $result= curl_exec($curl);
              //echo $result;
              preg_match_all('!https://coronavirus.gob.mx/[^\s]*?">!', $result, $links);
+             $links=$links[0];
 
              for($i=0;$i<sizeof($links);$i++){
               $links[$i]=str_replace('">', "", $links[$i]);
+              //$links[$i]=str_replace("sa=U", "POPO", $links[$i]);
+              $links[$i]=strstr($links[$i],'&',true);
              }
+             $links=array_unique($links);
 
              print_r($links);
 
