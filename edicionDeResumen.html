@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Edicion de resumen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<style type="text/css">
+	    	#margenCH{
+				height: 10px;
+			}
+			#margenM{
+				height: 30px;
+			}
+			#margenG{
+				height: 60px;
+			}
+			#titulo{
+				text-align: center;
+				font-weight: 400;
+				font-size: 35px;
+			}
+			#autor{
+				text-align: center;
+				font-size: 20px;
+				color: rgb(33, 97, 140);
+			}
+			#fecha{
+				text-align: center;
+				font-size: 16px;
+			}
+			#resumen{
+				
+				text-align: justify;
+			}
+			#centrado{
+				display:block;
+				margin-left: auto;
+	  			margin-right: auto;
+			}
+			.roundedfloat-start{
+	    		display: block;
+				margin-left: auto;
+				margin-right: auto;
+				width: 70%;
+				height: auto;
+				border-radius: 10px;
+	    	}
+	    	#btnimg{
+	    		display: block;
+				margin-left: auto;
+				margin-right: auto;
+				width: 70%;
+				height: auto;
+				border-radius: 10px;
+	    	}
+	    	#contenedorImagenes{
+	    		padding-left: 20px;
+	    		padding-right: 20px;
+	    		padding-top: 10px;
+	    		padding-bottom: 10px;
+	    		align-items: stretch;
+	    	}
+	    	#exampleFormControlTextarea1{
+	    		height: 185px;
+	    		color: rgb(2, 40, 83 );
+	    		
+	    	}
+	    	#instruccionesresumen{
+				text-align: center;
+	    		font-size: 20px;
+	    		font-weight: 500;
+	    		color: rgb(2, 40, 83 );
+	    	}
+	    	#botonGuardarResumen{
+	    		padding-left: 30px;
+	    		padding-right: 30px;
+	    	}
+
+
+
+
+		</style>
+		<script type="text/javascript">
+			var imagenes=[
+			"https://multimedia.elsevier.es/PublicationsMultimediaV1/item/multimedia/thumbnail/S0300893220301743:gr1.jpeg?xkr=ue/ImdikoIMrsJoerZ+w95VGOQIPAvopuSI6ycxV2xQ=",
+			"https://multimedia.elsevier.es/PublicationsMultimediaV1/item/multimedia/thumbnail/S0300893220301743:gr2.jpeg?xkr=ue/ImdikoIMrsJoerZ+w95VGOQIPAvopuSI6ycxV2xQ=",
+			];
+
+			var listaDeVideos=[
+			"https://www.youtube.com/embed/jIO0PV0sqKk",
+			"https://www.youtube.com/embed/3OSCZSDUrP8"
+			];
+
+			var resuemnDado="La fisiopatología de este virus continúa siendo desconocida. Múltiples estudios indican que los pacientes infectados por COVID-19 ttienen altas concentraciones de interleucina (IL) 1 beta, interferón (IFN) gamma, proteína 10 inducible por IFN (IP) y proteína quimiotáctica monocitaria (MCP) 1. Se ha demostrado que los pacientes más graves tienen mayores concentraciones del factor estimulador de colonias de granulocitos (GCSF), IP-10, MCP-1, proteína inflamatoria de macrófagos (MIP) 1 A y factor de necrosis tumoral (TNF) alfa, lo que indica que la tormenta de citocinas podría determinar la gravedad de la enfermedad2. Cabe destacar que, entre los pacientes afectados por COVID-19, la concentración plasmática de IL-6 aumenta llamativamente en aquellos con lesión cardiaca3, 4, al igual que la fracción aminoterminal del propéptido natriurético cerebral (NT-proBNP) y las troponinas cardiacas (cTnI/T). Teniendo en cuenta que la tormenta de citocinas es también el mecanismo fisiopatológico central en la miocarditis fulminante, es lógico pensar en el daño cardiaco por COVID-19...";
+			var tfecha="junio 2020";
+			var tautor="Ángela Irabien-Ortiz";
+			var ttitulo="Miocarditis fulminante por COVID-19";
+			var enlaceAlArticulo="https://facebook.com";
+			function mostrarImagenes(imagenes){
+				const contenedorImagenes=document.querySelector('#contenedorImagenes');
+				for (var i = 0; i < imagenes.length; i++) {
+					contenedorImagenes.innerHTML+=`
+					<div class="col-6" id="${imagenes[i]}"><img src="${imagenes[i]}" class="roundedfloat-start" >
+						<button type="button" class="btn btn-dark" onclick="eliminarImagen('${imagenes[i]}')" id="btnimg")">ELIMINAR IMAGEN</button>
+					</div>`;
+
+				}
+			}
+
+			function mostrarvideos(videos){
+				
+				const contenedorVideos=document.querySelector('#videos');
+				for (var i = 0; i < videos.length; i++) {
+					contenedorVideos.innerHTML+=`
+				<div class="col-12" id="${videos[i]}">
+					<div class="row justify-content-center" >
+						<div class="col-2" ></div>
+						<div class="col-2" >
+							<button type="button" class="btn btn-dark" onclick="eliminarVideo('${videos[i]}')">ELIMINAR VIDEO</button>
+						</div>
+						<div class="col-4" >
+							<iframe width="560" height="315" src="${videos[i]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen >
+							</iframe>
+						</div>
+						<div class="col-4" ></div>
+					</div>
+				</div>`;
+
+				}
+			}
+
+			function cargarResumenYTitulos(textoResumen,textAutor,textFecha,textTitulo){
+				const contenedorResumen=document.querySelector('#resumen');
+				const contenedorAutor=document.querySelector('#autor');
+				const contenedorFecha=document.querySelector('#fecha');
+				const contenedortitulo=document.querySelector('#titulo');
+				contenedorResumen.innerHTML+=textoResumen;
+				contenedorAutor.innerHTML+=textAutor;
+				contenedorFecha.innerHTML+=textFecha;
+				contenedortitulo.innerHTML+=textTitulo;
+			}
+
+			function cargarDatos(){
+				cargarResumenYTitulos(resuemnDado,tautor,tfecha,ttitulo);
+				mostrarImagenes(imagenes);
+				mostrarvideos(listaDeVideos);
+				
+			}
+			function irAlArticulo(){
+				location.href=enlaceAlArticulo;
+			}
+
+			function guardarResumen(){
+				var nuevoResumen=document.getElementById('exampleFormControlTextarea1').value;
+				document.getElementById("resumen").innerHTML=nuevoResumen;
+			}
+
+			function eliminarImagen(idimg){
+				elemento=document.getElementById(idimg);
+				document.getElementById('contenedorImagenes').removeChild(elemento);
+				var imgs=[];
+				for (var i = 0; i < imagenes.length; i++) {
+					if(imagenes[i]!=idimg){imgs.push(imagenes[i]);} 
+				}
+				imagenes=imgs;
+			}
+
+			function eliminarVideo(vid){
+				elemento=document.getElementById(vid);
+				document.getElementById('videos').removeChild(elemento);
+				var vids=[];
+				console.log(listaDeVideos.length);
+				for (var i = 0; i < listaDeVideos.length; i++) {
+					if(listaDeVideos[i]!=vid){vids.push(listaDeVideos[i]);} 
+				}
+				listaDeVideos=vids;
+				console.log(listaDeVideos.length);
+			}
+
+			function GuardarCambios() {
+				alert("guardó los cambios");
+			}
+
+			function Regresar(){
+				alert("esta regresando");
+			}
+		</script>
+	    <title>Resumen</title>
+	</head>
+  	<body  onload="cargarDatos()">
+  	<div class="row justify-content-center">
+  		<div class="col-2" id="margenM">
+			<button type="button" class="btn btn-danger"  id="centrado" onclick="GuardarCambios()">Guardar cambios</button>
+  		</div>
+  		<div class="col-8" id="margenM"></div>
+  		<div class="col-2" id="margenM">
+			<button type="button" class="btn btn-success" id="centrado" onclick="Regresar()">Regresar sin guardar</button>
+  		</div>
+
+  		<figure>
+		  	<blockquote class="blockquote" id="titulo">
+		   		<p></p>
+		  	</blockquote>
+		  	<figcaption class="blockquote-footer"  id="autor">
+		   	 	por: 
+		  	</figcaption>
+		  	<figcaption class="blockquote-footer"  id="fecha" >
+		   	 	publicado: 
+		  	</figcaption>
+		</figure>
+  		
+  		
+  		<div class="col-12">
+  			<button type="button" class="btn btn-outline-dark" id="centrado" onclick="irAlArticulo()">VER ARTICULO COMPLETO</button>
+  		</div>
+  		<div class="col-12" id="margenM"></div>
+  		<div class="col-2" ></div>
+		<div class="col-8" >
+			<div class="shadow p-3 mb-5 bg-body rounded" id="resumen"></div>
+				<div>
+				<div class="collapse" id="collapseExample">
+					<div class="card card-body" id="sugerencias">
+						<div class="mb-3">
+						  <label for="exampleFormControlTextarea1" class="form-label" id="instruccionesresumen">Redacte aquí el resumen, cuando termine puede publicarlo pulsando el botón “publicar cambios”.</label>
+						  <textarea class="form-control" id="exampleFormControlTextarea1" rows="4">
+						  </textarea>
+						</div>
+						<div class="col-3">
+							<a  class="btn btn-primary" role="button"  id="botonGuardarResumen" onclick="guardarResumen()"  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Guardar resumen  </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  		<div class="col-2" >
+			<button type="button" class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="problemas">Editar Resumen</button>
+  		</div>
+
+
+  		
+  		<div class="col-12" id="margenM"></div>
+  		<div class="col-2" ></div>
+  		<div class="col-8">
+  			<div class="row"id="contenedorImagenes">
+
+  			</div>
+  		</div>
+  		<div class="col-2" ></div>
+
+  		<div class="col-12" id="margenM"></div>
+
+  		<div class="col-2" ></div>
+  		<div class="col-8" id="contenedorImagenes">
+  			<div class="row"id="videos">
+
+  			</div>
+  		</div>
+  		<div class="col-2" ></div>
+
+  		<div class="col-12" id="margenM"></div>
+
+  		<div class="col-12">
+  			<button type="button" class="btn btn-outline-dark" id="centrado" onclick="irAlArticulo()">VER ARTICULO COMPLETO</button>
+  		</div>
+
+  		<div class="col-12" id="margenG"></div>
+    	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    </div>
+    </body>
+</html>

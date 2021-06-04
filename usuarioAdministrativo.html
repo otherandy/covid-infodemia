@@ -134,7 +134,7 @@
         rev.titulo="Miocarditis fulminante por COVID-19";
         rev.fecha="Junio 2020";
         rev.autor="Ángela Irabien-Ortiz";
-        rev.enlaceAlResumen="contenidodelresumen.html";
+        rev.enlaceAlResumen="edicionDeResumen.html";
         listarResumenesRevision.push(rev);
         listaDeRevisados.push(rev);
       }
@@ -142,7 +142,7 @@
         rev.titulo="COVID-19";
         rev.fecha="Mayo 2010";
         rev.autor="Juana Lagos Cruz";
-        rev.enlaceAlResumen="contenidodelresumen.html";
+        rev.enlaceAlResumen="edicionDeResumen.html";
         listarResumenesRevision.push(rev);
         listaDeRevisados.push(rev);
       }
@@ -150,7 +150,7 @@
         rev.titulo="titulo prueba numero 3";
         rev.fecha="agosto 1800";
         rev.autor="alumnos de ingenieria de software";
-        rev.enlaceAlResumen="contenidodelresumen.html";
+        rev.enlaceAlResumen="edicionDeResumen.html";
         listarResumenesRevision.push(rev);
         listaDeRevisados.push(rev);
 
@@ -165,6 +165,7 @@
       document.getElementById('nombreUsuario').innerHTML+=nombreUsuario;
       document.getElementById('enlaceANuestroObjetivo').innerHTML+="NUESTRO OBJETIVO";
     }
+
 
     function listarRevisiones(){
       for (var i = 0; i < listarResumenesRevision.length; i++) {
@@ -286,7 +287,7 @@
 
     function alfanumerico(letra){
 
-      var letras="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ-*,/01234567891";
+      var letras="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ-*,/01234567891@ ";
       
         if(letras.indexOf(letra)!=-1) return true;
         else return false;
@@ -388,7 +389,7 @@
     <div class="col-2"></div>
     <div class="col-8">
       <div class="shadow-lg p-3 mb-5 bg-white rounded">
-        <div class="overflow-auto" id="zonaDeResumenesRevision">
+        <div class="overflow-auto" id="zonaDeResumenesRevision" >
           
           
 
