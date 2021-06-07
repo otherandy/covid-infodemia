@@ -385,7 +385,39 @@
 				document.getElementById('contenedorImagenes').removeChild(elemento);
 				etic.imagenes=eliminarDeLista(etic.imagenes,idimg);
 			}
+			
+			function agregarImagen(){
+				var enlace=document.getElementById("nuevaImagen").value;
+				const contenedorImagenes=document.querySelector('#contenedorImagenes');
+				contenedorImagenes.innerHTML+=`
+					<div class="col-4" id="${enlace}" style="margin-left: auto;margin-right: auto;">
+						<img src="${enlace}" class="rounded float-start" id="imagenIndividual" alt="..." onclick="location.href='${enlace}';">
+						<button type="button" class="btn btn-outline-danger btn-sm" onclick="eliminarImagen('${enlace}')" id="btnimg")">ELIMINAR IMAGEN</button>
+					</div>`;
+				etic.imagenes.push(enlace);
+				alert("IMAGEN AÑADIDA");
+			}
 
+			function agregarVideo(){
+				var enlace=document.getElementById("nuevoVideo").value;
+				const contenedorVideos=document.querySelector('#videos');
+				contenedorVideos.innerHTML+=`<div class="col-12" id="${enlace}">
+					<div class="row justify-content-center" >
+						<div class="col-2" ></div>
+						<div class="col-2" >
+							<button type="button" class="btn btn-outline-danger btn-sm" onclick="eliminarVideo('${enlace}')">ELIMINAR VIDEO</button>
+						</div>
+						<div class="col-4" >
+							<iframe width="560" height="315" src="${enlace}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen >
+							</iframe>
+						</div>
+						<div class="col-4" ></div>
+					</div>
+				</div>`;
+				etic.videos.push(enlace);
+				alert("VIDEO AÑADIDO");
+			}
+			
 			function edicionResumen(tipo,indice){
 				if(tipo==1){
 					if(etic.resumen.length==1){
@@ -490,6 +522,10 @@
 			function eliminarResumen(){
 				alert("presiono eliminar resumen");
 			}
+			
+			function Editardespues(){
+				alert("presiono editar depues");
+			}
 
 		</script>
 	    <title>Editor de Resumen</title>
@@ -500,7 +536,7 @@
   		</div>
 		
 		<div class="col-12" >
-  			<button type="button" class="btn btn-warning" id="centrado" onclick="" style="margin-bottom: 15PX;">GUARDAR CAMBIOS Y EDITAR MÁS TARDE</button>
+  			<button type="button" class="btn btn-warning" id="centrado" onclick="Editardespues()" style="margin-bottom: 15PX;">GUARDAR CAMBIOS Y EDITAR MÁS TARDE</button>
   		</div>
 		
   		<div class="col-12" >
@@ -535,10 +571,10 @@
   				<div class="row">
   					<div class="col-1"></div>
   					<div class="col-8">
-						<input class="form-control form-control-lg" type="text" placeholder="Enlace de la imagen" aria-label=".form-control-lg example">
+						<input class="form-control form-control-lg" type="text" placeholder="Enlace de la imagen" aria-label=".form-control-lg example" id="nuevaImagen">
   					</div>
   					<div class="col-2">
-						<button type="button" class="btn btn-info">AGREGAR IMAGEN</button>
+						<button type="button" class="btn btn-info" onclick="agregarImagen()">AGREGAR IMAGEN</button>
   					</div>
   					<div class="col-1"></div>
   						
@@ -553,10 +589,10 @@
   				<div class="row">
   					<div class="col-1"></div>
   					<div class="col-8">
-						<input class="form-control form-control-lg" type="text" placeholder="Enlace del video" aria-label=".form-control-lg example">
+						<input class="form-control form-control-lg" type="text" placeholder="Enlace del video" aria-label=".form-control-lg example" id="nuevoVideo">
   					</div>
   					<div class="col-2">
-  						<button type="button" class="btn btn-info">AGREGAR VIDEO</button>
+  						<button type="button" class="btn btn-info" onclick="agregarVideo()">AGREGAR VIDEO</button>
   					</div>
   					<div class="col-1"></div>
   					
