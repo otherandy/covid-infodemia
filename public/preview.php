@@ -82,18 +82,8 @@
 	    }
 	</style>
 	<?php
-	session_start();
-	$consulta = "select * from resumenes where id='" . $_GET['id'] . "'";
-	if ($resultado = $conn->query($consulta)->fetch_assoc()) : ?>
-		<script type="text/javascript">
-			var resumenId=<?php echo json_encode($_GET['id']); ?>;
-			var resuemnDado=<?php echo json_encode($resultado['original']); ?>;
-			var tfecha=<?php echo json_encode($resultado['fecha_creacion']); ?>;
-			var ttitulo=<?php echo json_encode($resultado['texto']); ?>;
-		</script>
-	<?php
-	endif; ?>
-
+	session_start(); ?>
+	
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript">
 
@@ -101,14 +91,13 @@
 			"https://multimedia.elsevier.es/PublicationsMultimediaV1/item/multimedia/thumbnail/S0300893220301743:gr1.jpeg?xkr=ue/ImdikoIMrsJoerZ+w95VGOQIPAvopuSI6ycxV2xQ=",
 			"https://multimedia.elsevier.es/PublicationsMultimediaV1/item/multimedia/thumbnail/S0300893220301743:gr2.jpeg?xkr=ue/ImdikoIMrsJoerZ+w95VGOQIPAvopuSI6ycxV2xQ=",
 			];
-			var tautor="Ángela Irabien-Ortiz";
+			
 
 			var listaDeVideos=[
 			"https://www.youtube.com/embed/jIO0PV0sqKk",
 			"https://www.youtube.com/embed/3OSCZSDUrP8"
 			];
 
-			var enlaceAlArticulo="https://facebook.com";
 			var enlaceAInicio="index.php";
 
 			function mostrarImagenes(imagenes){
@@ -197,7 +186,15 @@
 				$.ajax({
             		type : "POST",  //type of method
             		url  : "update.php",  //your page
-            		data : { id : resumenId, texto : ttitulo, original : resuemnDado, fecha : tfecha },// passing the values
+            		data : { 
+						id : resumenId, 
+						titulo : ttitulo, 
+						autor : tautor, 
+						resumen : resuemnDado, 
+						fuente : enlaceAlArticulo, 
+						imagen : timagen, 
+						video : tvideo, 
+						fecha : tfecha },// passing the values
             		success: function(respuesta){
 						alert(respuesta);
                     }
@@ -208,9 +205,31 @@
 				location.href = enlaceAInicio;
 			}
 
-			function aprobar(){
-			}
+			//function aprobar(){
+			//}
 		</script>
+<?php
+$consulta = "select * from resumenes where id='" . $_GET['id'] . "'";
+	if ($resultado = $conn->query($consulta)->fetch_assoc()) : ?>
+		<script type="text/javascript">
+
+			var resumenId=<?php echo json_encode($_GET['id']); ?>;
+			var ttitulo = <?php echo json_encode($resultado['titulo']); ?>;
+			var tautor = <?php echo json_encode($resultado['autor']); ?>;
+			var resuemnDado = <?php echo json_encode($resultado['resumen']); ?>;
+			var enlaceAlArticulo = <?php echo json_encode($resultado['fuente']); ?>;
+			//var timagen="https://www.cancer.org/content/dam/cancer-org/images/photographs/objetcs/medical/coronavirus-cdc-illustration.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg";
+			//var tvideo="https://www.youtube.com/embed/rLOWYCpz3AU";
+			var timagen = <?php echo json_encode($resultado['imagen']);  ?>;
+			var tvideo = <?php echo json_encode($resultado['video']); ?>;
+			var tfecha = <?php echo json_encode($resultado['fecha_creacion']); ?>;
+			
+			if(timagen != null) imagenes.push(timagen);
+			if(tvideo != null) listaDeVideos.push(tvideo);
+
+		</script>
+	<?php
+	endif; ?>
 
 	    <title>Resumen</title>
 
@@ -221,11 +240,9 @@
   		<div class="col-2" id="margenM">
 			<button type="button" class="btn btn-danger"  id="centrado" onclick="GuardarCambios()">Guardar cambios</button>
   		</div>
-  		<div class="col-8" id="margenM">
-  			<button type="button" class="btn btn-success" id="centrado" onclick="aprobar()">APROBAR RESUMEN</button>
-  		</div>
+  		<div class="col-8" id="margenM"></div>
   		<div class="col-2" id="margenM">
-			<button type="button" class="btn btn-success" id="centrado" onclick="Regresar()">Salir sin guardar</button>
+			<button type="button" class="btn btn-success" id="centrado" onclick="Regresar()">Salir</button>
   		</div>
 
   		<figure>

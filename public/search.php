@@ -168,7 +168,7 @@
 				else{
 					
 					for (var i = 0 ; i <listaDeResultados.length ; i++) {
-						if(listaDeResultados[i].video!="1" && listaDeResultados[i].imagen!="1"){
+						if(listaDeResultados[i].video!= null && listaDeResultados[i].imagen!= null){
 							mostrarResultados.innerHTML+=	`
 								<div class="shadow-sm p-3 mb-5 bg-body rounded" id="separacionResultado">
 									<div class="row justify-content-center">
@@ -199,7 +199,7 @@
 								</div>
 								`;
 						}
-						else if (listaDeResultados[i].video=="1" && listaDeResultados[i].imagen!="1") {
+						else if (listaDeResultados[i].video== null && listaDeResultados[i].imagen!= null) {
 							mostrarResultados.innerHTML+=	`
 								<div class="shadow-sm p-3 mb-5 bg-body rounded" id="separacionResultado">
 									<div class="row justify-content-center">
@@ -226,7 +226,7 @@
 								</div>
 								`;
 						}
-						else if (listaDeResultados[i].video!="1" && listaDeResultados[i].imagen=="1"){
+						else if (listaDeResultados[i].video!= null && listaDeResultados[i].imagen== null){
 							mostrarResultados.innerHTML+=	`
 								<div class="shadow-sm p-3 mb-5 bg-body rounded" id="separacionResultado">
 									<div class="row justify-content-center">
@@ -327,16 +327,18 @@
           $consulta = "select * from etiquetas_de_resumen,etiquetas e,resumenes r where e.nombre like '" . $_GET['q'] . "' and etiquetas_id=e.id and resumenes_id=r.id";
           if ($ejecutar = $conn->query($consulta)) :
             $rows = mysqli_num_rows($ejecutar);
-            //echo "<p>resultados encontrados: ".$rows."</p>";
             while ($fila = $ejecutar->fetch_assoc()) : ?>
 			<script type="text/javascript">
-				var r= new Resultado(",",",",",");
+				var r= new Resultado();
 				r.enlaceAlResumen='preview.php?id=' + <?php echo json_encode($fila['resumenes_id']); ?> + '&q=' + <?php echo json_encode($_GET['q']); ?>;
-				r.titulo = <?php echo json_encode($fila['texto']); ?>;
-				r.imagen="1";
-				r.video="https://www.youtube.com/embed/oYpdnfg2Wko";
+				r.titulo = <?php echo json_encode($fila['titulo']); ?>;
+				r.resumen = <?php echo json_encode($fila['resumen']); ?>;
+				r.imagen= <?php echo json_encode($fila['imagen']); ?>;
+				r.video= <?php echo json_encode($fila['video']); ?>;
+				//r.imagen="https://www.cancer.org/content/dam/cancer-org/images/photographs/objetcs/medical/coronavirus-cdc-illustration.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg";
+				//r.video="https://www.youtube.com/embed/rLOWYCpz3AU";
 				r.fecha = <?php echo json_encode($fila['fecha_creacion']); ?>;
-				r.resumen = <?php echo json_encode($fila['original']); ?>;
+				
 				listaDeResultados.push(r);
 			</script>
         <?php

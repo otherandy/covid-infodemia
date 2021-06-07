@@ -377,11 +377,15 @@
         <script type="text/javascript">
 
           var rev=new Revision();
-          rev.titulo = <?php echo json_encode($fila['texto']); ?>;
-          rev.fecha = <?php echo json_encode($fila['fecha_creacion']); ?>;
-          rev.autor="Ángela Irabien-Ortiz";
+          rev.titulo = <?php echo json_encode($fila['titulo']); ?>;
+          rev.autor=<?php echo json_encode($fila['autor']); ?>;
           rev.enlaceAlResumen='preview-changes.php?id=' + <?php echo json_encode($fila['id']); ?>;
+          rev.fecha = <?php echo json_encode($fila['fecha_creacion']); ?>;
+          
           listarResumenesRevision.push(rev);
+			
+			if(timagen != null) imagenes.push(timagen);
+			if(tvideo != null) listaDeVideos.push(tvideo);
 
 			  </script>
     <?php
@@ -394,9 +398,9 @@
       while ($fila = $ejecutar->fetch_assoc()) : ?>
         <script type="text/javascript">
           var rev=new Revision();
-          rev.titulo = <?php echo json_encode($fila['texto']); ?>;
+          rev.titulo = <?php echo json_encode($fila['titulo']); ?>;
+          rev.autor=<?php echo json_encode($fila['autor']); ?>;
           rev.fecha = <?php echo json_encode($fila['fecha_creacion']); ?>;
-          rev.autor="Ángela Irabien-Ortiz";
           rev.enlaceAlResumen='preview.php?id=' + <?php echo json_encode($fila['id']); ?> + '&q=';
           listaDeRevisados.push(rev);
 
