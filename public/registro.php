@@ -106,6 +106,9 @@ if ($_POST) {
 	</style>
 
 	<script type="text/javascript">
+		var enlaceInicio = "index.php";
+
+
 		function validateForm() {
 			var x = document.forms["myForm"]["usuario"].value;
 			if (x == "") {
@@ -124,16 +127,14 @@ if ($_POST) {
 			}
 		}
 		function regresar() {
-			var url = window.location.href;
-			url = url.substring(0, url.length - 12);
-			location.href=url;
+			location.href=enlaceInicio;
 		}
 	</script>
 </head>
 <body>
 	<div class="row justify-content-center">
 		<div class="col-12" id="Sesion">
-		<h1 class="display-6" id="textoCentrado">Crear nuevo usuario administrativo</h1>
+		<h1 class="display-6" id="textoCentrado">Crear nuevo usuario</h1>
 	</div>
 	<div class="col-12" id="separacionCH"></div>
 	<div class="col-3"></div>

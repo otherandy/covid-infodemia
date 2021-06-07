@@ -184,19 +184,15 @@
 				console.log(listaDeVideos.length);
 			}
 
-			function GuardarCambios() {
-				
-			}
-
 			function Regresar(){
 				location.href = enlaceARequests;
 			}
 
-			function aprobar(){
+			function aprobar(approvar){
 				$.ajax({
             		type : "POST",  //type of method
             		url  : "approve-changes.php",  //your page
-            		data : { id : resumenId, apl : 1 },// passing the values
+            		data : { id : resumenId, apl : approvar },// passing the values
             		success: function(respuesta){
 						//alert(respuesta);
 						if(confirm(respuesta)) document.location = enlaceARequests;
@@ -237,13 +233,16 @@
   	<body  onload="cargarDatos()">
   	<div class="row justify-content-center">
   		<div class="col-2" id="margenM">
-			<button type="button" class="btn btn-danger"  id="centrado" onclick="GuardarCambios()">Guardar cambios</button>
+			<button type="button" class="btn btn-success"  id="centrado" onclick="GuardarCambios()">Guardar cambios</button>
   		</div>
-  		<div class="col-8" id="margenM">
-  			<button type="button" class="btn btn-success" id="centrado" onclick="aprobar()">APROBAR RESUMEN</button>
+  		<div class="col-4" id="margenM">
+  			<button type="button" class="btn btn-success" id="centrado" onclick="aprobar(1)">APROBAR RESUMEN</button>
+  		</div>
+		  <div class="col-4" id="margenM">
+  			<button type="button" class="btn btn-danger" id="centrado" onclick="aprobar(0)">RECHAZAR RESUMEN</button>
   		</div>
   		<div class="col-2" id="margenM">
-			<button type="button" class="btn btn-success" id="centrado" onclick="Regresar()">Regresar</button>
+			<button type="button" class="btn btn-danger" id="centrado" onclick="Regresar()">Regresar</button>
   		</div>
 
   		<figure>

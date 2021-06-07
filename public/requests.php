@@ -116,6 +116,12 @@
       text-align: left;
       padding-right: 5px;
     }
+    #usuarioResumen{
+      font-size: 18px;
+      font-weight: 300;
+      text-align: left;
+      padding-right: 5px;
+    }
     #resultado{
       margin-bottom: 40px;
     }
@@ -127,6 +133,7 @@
           this.titulo=titulo;
           this.fecha=fecha;
           this.autor=resumen;
+          this.usuario=usuario;
           this.enlaceAlResumen=enlaceAlResumen;
           this.estado=estado;
         }
@@ -136,46 +143,6 @@
     var listarResumenesRevision=[];
     var listaDeRevisados=[];
 
-    /*
-    for (var i = 0; i < 25; i++) {
-      var rev=new Revision();
-
-      if(i%3==0){
-        rev.titulo="Miocarditis fulminante por COVID-19";
-        rev.fecha="Junio 2020";
-        rev.autor="Ángela Irabien-Ortiz";
-        rev.enlaceAlResumen="edicionDeResumen.html";
-        listarResumenesRevision.push(rev);
-        listaDeRevisados.push(rev);
-      }
-      else if(i%2==0){
-        rev.titulo="COVID-19";
-        rev.fecha="Mayo 2010";
-        rev.autor="Juana Lagos Cruz";
-        rev.enlaceAlResumen="edicionDeResumen.html";
-        listarResumenesRevision.push(rev);
-        listaDeRevisados.push(rev);
-      }
-      else {
-        rev.titulo="titulo prueba numero 3";
-        rev.fecha="agosto 1800";
-        rev.autor="alumnos de ingenieria de software";
-        rev.enlaceAlResumen="edicionDeResumen.html";
-        listarResumenesRevision.push(rev);
-        listaDeRevisados.push(rev);
-
-      }
-      
-    }*/
-
-    var nombreUsuario="GradonFonseca@uabc.edu.mx";
-    var NuestroObjetivo="acercaDe.html";
-    
-    function llenadoDeInformacion(){
-      document.getElementById('nombreUsuario').innerHTML+=nombreUsuario;
-      document.getElementById('enlaceANuestroObjetivo').innerHTML+="NUESTRO OBJETIVO";
-    }
-
 
     function listarRevisiones(){
       for (var i = 0; i < listarResumenesRevision.length; i++) {
@@ -183,7 +150,7 @@
         resultados.innerHTML+=`
           <div class="shadow-sm p-3 mb-5 bg-white rounded" id="resultado">  
            <div class="row" >
-              <div class="col-6">
+              <div class="col-3">
                 <p class="display-6"id="tituloResumen" onclick="location.href='${listarResumenesRevision[i].enlaceAlResumen}'" >
                   ${listarResumenesRevision[i].titulo}
                 </p>
@@ -196,6 +163,11 @@
               <div class="col-3">
                 <p class="display-6" id="fechaResumen" >
                   ${listarResumenesRevision[i].fecha}
+                </p> 
+              </div>
+              <div class="col-3">
+                <p class="display-6" id="usuarioResumen" >
+                  Edicion hecha por: ${listarResumenesRevision[i].usuario}
                 </p> 
               </div>
             </div>
@@ -252,6 +224,11 @@
                   ${listarResumenesRevision[i].fecha}
                 </p> 
               </div>
+              <div class="col-3">
+                <p class="display-6" id="usuarioResumen" style="color: rgb(2, 32, 66);">
+                Edicion hecha por: ${listarResumenesRevision[i].usuario}
+                </p> 
+              </div>
             </div>
           </div>
         `;
@@ -285,12 +262,12 @@
       }
     }
 
-    function enlaceANuestroObjetivo(){
-      location.href=NuestroObjetivo;
-    }
+    //function enlaceANuestroObjetivo(){
+    //  location.href=NuestroObjetivo;
+    //}
 
     function cargarInformacion(){
-       llenadoDeInformacion();
+       //llenadoDeInformacion();
        listarRevisiones();
        listarRevisados();
     }
@@ -381,11 +358,8 @@
           rev.autor=<?php echo json_encode($fila['autor']); ?>;
           rev.enlaceAlResumen='preview-changes.php?id=' + <?php echo json_encode($fila['id']); ?>;
           rev.fecha = <?php echo json_encode($fila['fecha_creacion']); ?>;
-          
+          rev.usuario=<?php echo json_encode($fila['nombre_usuario']); ?>;
           listarResumenesRevision.push(rev);
-			
-			if(timagen != null) imagenes.push(timagen);
-			if(tvideo != null) listaDeVideos.push(tvideo);
 
 			  </script>
     <?php
@@ -412,6 +386,7 @@
 </head>
 <body onload="cargarInformacion()">
   <div class="row justify-content-center">
+    <!--
     <div class="col-3" id="margenCH">
       <a class="display-6" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="nombreUsuario"></a>
       <div class="collapse" id="collapseExample">
@@ -431,7 +406,7 @@
     <div class="col-6" id="margenCH"></div>
     <div class="col-3" id="margenCH">
       <h1 class="display-6" id="enlaceANuestroObjetivo" onclick="enlaceANuestroObjetivo()"></h1>
-    </div>
+    </div>-->
 
 
     <div class="col-12" id="margenG">
@@ -443,13 +418,11 @@
       <div class="shadow-lg p-3 mb-5 bg-white rounded">
         <div class="overflow-auto" id="zonaDeResumenesRevision" >
           
-          
 
         </div>
       </div>
     </div>
     <div class="col-2"></div>
-
 
     <div class="col-12" id="margenXG"></div>
 
@@ -472,11 +445,26 @@
       </div>
     </div>
     <div class="col-2"></div>
-     
+
+    <!--
+    <div class="col-5"></div>
+    <div class="col-2" >
+      <input class="form-control form-control-sm" type="text" placeholder="Buscar" id="buscador" onkeyup=""> 
+    </div>
+    <div class="col-5"></div>
+    
+    <div class="col-2"></div>
+    <div class="col-8" >
+      <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="overflow-auto" id="zonaDeUsuarios">
+        </div>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  -->
 
   </div>
   
-
   <div class="col-12" id="margenM"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
