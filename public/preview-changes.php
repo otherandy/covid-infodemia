@@ -83,7 +83,7 @@
 	</style>
 	<?php
 	session_start();
-	$consulta = "select * from resumenes where id='" . $_GET['id'] . "'";
+	$consulta = "select * from `resumenes-cambios` where id='" . $_GET['id'] . "'";
 	if ($resultado = $conn->query($consulta)->fetch_assoc()) : ?>
 		<script type="text/javascript">
 			var resumenId=<?php echo json_encode($_GET['id']); ?>;
@@ -109,7 +109,7 @@
 			];
 
 			var enlaceAlArticulo="https://facebook.com";
-			var enlaceAInicio="index.php";
+			var enlaceARequests="requests.php";
 
 			function mostrarImagenes(imagenes){
 				const contenedorImagenes=document.querySelector('#contenedorImagenes');
@@ -194,21 +194,25 @@
 			}
 
 			function GuardarCambios() {
-				$.ajax({
-            		type : "POST",  //type of method
-            		url  : "update.php",  //your page
-            		data : { id : resumenId, texto : ttitulo, original : resuemnDado, fecha : tfecha },// passing the values
-            		success: function(respuesta){
-						alert(respuesta);
-                    }
-        		});
+				
 			}
 
 			function Regresar(){
-				location.href = enlaceAInicio;
+				location.href = enlaceARequests;
 			}
 
 			function aprobar(){
+				$.ajax({
+            		type : "POST",  //type of method
+            		url  : "approve-changes.php",  //your page
+            		data : { id : resumenId, apl : 1 },// passing the values
+            		success: function(respuesta){
+						//alert(respuesta);
+						if(confirm(respuesta)) document.location = enlaceARequests;
+						//else document.location = enlaceARequests;
+                    }
+        		});
+				//window.location.replace(enlaceARequests)
 			}
 		</script>
 
@@ -225,7 +229,7 @@
   			<button type="button" class="btn btn-success" id="centrado" onclick="aprobar()">APROBAR RESUMEN</button>
   		</div>
   		<div class="col-2" id="margenM">
-			<button type="button" class="btn btn-success" id="centrado" onclick="Regresar()">Salir sin guardar</button>
+			<button type="button" class="btn btn-success" id="centrado" onclick="Regresar()">Regresar sin guardar</button>
   		</div>
 
   		<figure>

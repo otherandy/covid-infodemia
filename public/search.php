@@ -162,7 +162,7 @@
 				
 				const mostrarResultados=document.querySelector('#zonaResultados');
 				if(listaDeResultados.length===0 ){
-					alert("ta vacio broh");
+					alert("No se encontro ningun resumen");
 					
 				}
 				else{
@@ -331,9 +331,8 @@
             while ($fila = $ejecutar->fetch_assoc()) : ?>
 			<script type="text/javascript">
 				var r= new Resultado(",",",",",");
-				r.enlaceAlResumen='preview.php?id=' + <?php echo json_encode($fila['resumenes_id']); ?>;
+				r.enlaceAlResumen='preview.php?id=' + <?php echo json_encode($fila['resumenes_id']); ?> + '&q=' + <?php echo json_encode($_GET['q']); ?>;
 				r.titulo = <?php echo json_encode($fila['texto']); ?>;
-				
 				r.imagen="1";
 				r.video="https://www.youtube.com/embed/oYpdnfg2Wko";
 				r.fecha = <?php echo json_encode($fila['fecha_creacion']); ?>;

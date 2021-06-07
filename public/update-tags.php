@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!isset($_SESSION['nombre'])){
+	echo 'Favor de iniciar sesion antes de realizar cambios';
+}else{
 require "php-partials/db-conn.php";
 if ((bool)$_GET['del']) {
     $consulta = $conn->prepare("delete from etiquetas_de_resumen where etiquetas_id=? and resumenes_id=?");
@@ -8,21 +12,5 @@ if ((bool)$_GET['del']) {
 $consulta->bind_param("ii", $_GET['e_id'], $_GET['r_id']);
 $consulta->execute();
 
-/*
-if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
-    $uri = 'https://';
-} else {
-    $uri = 'http://';
 }
-$uri .= $_SERVER['HTTP_HOST'];
-header('Location: ' . $uri . '/preview.php?id=' . $_GET['id']);
-exit;
-*/
-
-$url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-while (substr($url, -1) != '/'):
-    $url = substr($url, 0, -1);
-endwhile;
-header('Location: ' . $url. 'preview.php?id=' . $_GET['id']);
-exit();
 ?>
