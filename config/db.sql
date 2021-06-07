@@ -13,6 +13,21 @@ USE `covid` ;
 
 
 -- -----------------------------------------------------
+-- Table `covid`.`etiquetas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `covid`.`etiquetas` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `fecha_creacion` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+
+-- -----------------------------------------------------
 -- Table `covid`.`usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `covid`.`usuarios` (
