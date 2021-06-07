@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Edicion de resumen</title>
+		<title>Aprovar Resumen</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -226,14 +226,9 @@
 	<?php
 	endif; ?>
 
-	    <title>Resumen</title>
-
-	</head>
-
   	<body  onload="cargarDatos()">
   	<div class="row justify-content-center">
   		<div class="col-2" id="margenM">
-			<button type="button" class="btn btn-success"  id="centrado" onclick="GuardarCambios()">Guardar cambios</button>
   		</div>
   		<div class="col-4" id="margenM">
   			<button type="button" class="btn btn-success" id="centrado" onclick="aprobar(1)">APROBAR RESUMEN</button>
@@ -274,15 +269,18 @@
 						  </textarea>
 						</div>
 						<div class="col-3">
-							<a  class="btn btn-primary" role="button"  id="botonGuardarResumen" onclick="guardarResumen()"  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Guardar resumen  </a>
+							<<a  class="btn btn-primary" role="button"  id="botonGuardarResumen" onclick="guardarResumen()"  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Guardar resumen  </a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
   		<div class="col-2" >
+			  <!--
 			<button type="button" class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="problemas">Editar Resumen</button>
-  		</div>
+-->
+		</div>
 
 
   		
